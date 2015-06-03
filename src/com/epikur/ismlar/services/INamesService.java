@@ -64,7 +64,7 @@ public interface INamesService {
      * @return Возвратит список {@link #List List&lt;NameModel&gt;} при успешном выполнении, 
      * или {@code null} в другом случае
      */
-    List<NameModel> GetFilteredIsmList(String letter, String name, String gender, String meaning, String origin);
+    List<NameModel> GetFilteredNamesList(String letter, String name, String gender, String meaning, String origin);
     
     /**
      * Создать запись NameModel в БД
