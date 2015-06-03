@@ -19,7 +19,7 @@
             android:layout_width="32dip"
             android:layout_height="32dip"
             android:background="@android:color/transparent" 
-            android:src="@drawable/gender_female" />
+            android:src="@drawable/gender_male" />
         
     </LinearLayout>
     
@@ -30,7 +30,7 @@
 	    android:layout_centerVertical="true"
 	    android:layout_toRightOf="@+id/thumbnail"
 	    android:textSize="20dip"
-	    android:text="Gulnoza" >
+	    android:text="Sherzod" >
 
 	</TextView>
 </RelativeLayout>
