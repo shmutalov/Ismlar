@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
         android:padding="3dip"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/image_bg"
         android:layout_marginRight="5dip">
         
         <ImageView
             android:id="@+id/gender_image"
             android:layout_width="32dip"
             android:layout_height="32dip"
-            android:src="@drawable/gender_male" />
+            android:background="@android:color/transparent" 
+            android:src="@drawable/gender_female" />
         
     </LinearLayout>
     
@@ -30,7 +30,7 @@
 	    android:layout_centerVertical="true"
 	    android:layout_toRightOf="@+id/thumbnail"
 	    android:textSize="20dip"
-	    android:text="Sherzod" >
+	    android:text="Gulnoza" >
 
 	</TextView>
 </RelativeLayout>
