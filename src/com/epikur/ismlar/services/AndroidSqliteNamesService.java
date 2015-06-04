@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.epikur.ismlar.EmbeddedSqliteDatabase;
 import com.epikur.ismlar.NAME_GENDER;
@@ -69,7 +70,7 @@ public class AndroidSqliteNamesService implements INamesService {
 	}
 
 	@Override
-	public List<NameModel> GetAllNames() {
+	public List<NameModel> GetAllNames(int limit_offset, int limit_count) {
 		if (IsConnected())
         {
             String selectAllNamesQuery =
@@ -79,8 +80,20 @@ public class AndroidSqliteNamesService implements INamesService {
                 + "    , name" 		+ "\n"
                 + "    , meaning" 	+ "\n"
                 + "    , origin" 	+ "\n"
-                + "FROM ism";
+                + "FROM ism"		+ "\n"
+                + "ORDER BY name" 	+ "\n";
 
+            if (limit_count != 0) {
+            	if (limit_offset != 0) {
+            		selectAllNamesQuery += "LIMIT " + limit_count + " OFFSET " + limit_offset;
+            	}
+            	else {
+            		selectAllNamesQuery += "LIMIT " + limit_count;
+            	}
+            }
+            
+            Log.i("SQL Query", selectAllNamesQuery);
+            
             SQLiteDatabase db = database.getReadableDatabase();
             Cursor allNamesCursor = null;
             
@@ -171,7 +184,8 @@ public class AndroidSqliteNamesService implements INamesService {
 
 	@Override
 	public List<NameModel> GetFilteredNamesList(String letter, String name,
-			String gender, String meaning, String origin) {
+			String gender, String meaning, String origin,
+			int limit_offset, int limit_count) {
 		if (IsConnected())
         {
             String selectFilteredNamesQuery =
@@ -187,8 +201,20 @@ public class AndroidSqliteNamesService implements INamesService {
 	            + "    AND ( ? IS NULL OR gender LIKE ? )" 		+ "\n"
 	            + "    AND ( ? IS NULL OR name LIKE ? )" 		+ "\n"
 	            + "    AND ( ? IS NULL OR meaning LIKE ? )" 	+ "\n"
-	            + "    AND ( ? IS NULL OR origin LIKE ? )";
+	            + "    AND ( ? IS NULL OR origin LIKE ? )"		+ "\n"
+	            + "ORDER BY name"	+ "\n";
 
+            if (limit_count != 0) {
+            	if (limit_offset != 0) {
+            		selectFilteredNamesQuery += "LIMIT " + limit_count + " OFFSET " + limit_offset;
+            	}
+            	else {
+            		selectFilteredNamesQuery += "LIMIT " + limit_count;
+            	}
+            }
+            
+            Log.i("SQL Query", selectFilteredNamesQuery);
+            
             SQLiteDatabase db = database.getReadableDatabase();
             Cursor filteredNamesCursor = null;
             

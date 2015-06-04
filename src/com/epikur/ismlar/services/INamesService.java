@@ -40,10 +40,12 @@ public interface INamesService {
 
     /**
      * Получить весь список {@link NameModel}
+     * @param limit_offset Количество элементов для пропуска при получении части списка
+     * @param limit_count Количество элементов списка для получения, если 0 то будет получен полный список
      * @return Возвратит список {@link #List List&lt;NameModel&gt;} при успешном выполнении, 
      * или {@code null} в другом случае
      */
-    List<NameModel> GetAllNames();
+    List<NameModel> GetAllNames(int limit_offset, int limit_count);
     
     /**
      * Получить {@link NameModel} по имени ({@link NameModel.name})
@@ -61,10 +63,18 @@ public interface INamesService {
      * @param gender Пол
      * @param meaning Значение имени
      * @param origin Происхождение
+     * @param limit_offset Количество элементов для пропуска при получении части списка
+     * @param limit_count Количество элементов списка для получения, если 0 то будет получен полный список
      * @return Возвратит список {@link #List List&lt;NameModel&gt;} при успешном выполнении, 
      * или {@code null} в другом случае
      */
-    List<NameModel> GetFilteredNamesList(String letter, String name, String gender, String meaning, String origin);
+    List<NameModel> GetFilteredNamesList(String letter
+    		, String name
+    		, String gender
+    		, String meaning
+    		, String origin
+    		, int limit_offset
+    		, int limit_count);
     
     /**
      * Создать запись NameModel в БД

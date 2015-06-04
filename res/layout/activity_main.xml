@@ -9,8 +9,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="@string/search_names_hint">
-        
-        <requestFocus />
+
     </EditText>
         
     <ListView

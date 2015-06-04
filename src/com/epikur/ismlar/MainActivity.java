@@ -1,15 +1,41 @@
 package com.epikur.ismlar;
 
+import java.util.ArrayList;
+
+import com.epikur.ismlar.models.NameModel;
+import com.epikur.ismlar.services.AndroidSqliteNamesService;
+import com.epikur.ismlar.services.INamesService;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
-
+	private ListView namesListView;
+	private ListAdapter namesListViewAdapter;
+	private EditText searchNames;
+	private ArrayList<NameModel> namesList;
+	private INamesService nameService;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		namesListView = (ListView) findViewById(R.id.names_list);
+		
+		nameService = new AndroidSqliteNamesService(this);
+		
+		if (nameService != null && nameService.Connect("names", null, null)) {
+			namesListViewAdapter = new NamesListViewAdapter(this, nameService, 50);
+			namesListView.setAdapter(namesListViewAdapter);
+			namesListView.setOnScrollListener(new NamesListViewScrollListener((NamesListViewAdapter)namesListViewAdapter));
+		} else {
+			finish();
+		}
 	}
 
 	@Override
