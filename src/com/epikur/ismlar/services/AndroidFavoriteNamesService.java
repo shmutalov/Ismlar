@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class AndroidFavoriteNamesService implements IFavoriteNamesService {
 	public static final String PREFERENCES_NAME = "EPIKUR_ISMLAR";
@@ -53,11 +54,12 @@ public class AndroidFavoriteNamesService implements IFavoriteNamesService {
 
 	@Override
 	public boolean save() {
-		String favouritesJSON = gson.toJson(namesList);
+		String favouritesJSON = gson.toJson(namesList, new TypeToken<ArrayList<String>>(){}.getType());
 		
-		settings.edit().putString(FAVOURITES, favouritesJSON);
+		Editor editor = settings.edit();
+		editor.putString(FAVOURITES, favouritesJSON);
 		
-		return settings.edit().commit();
+		return editor.commit();
 	}
 
 	@Override

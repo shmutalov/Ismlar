@@ -8,4 +8,5 @@
 	<string name="favorites_menu">Favorites</string>
 	<string name="name_dialog_title">Name meaning</string>
 	<string name="name_added_to_favorites">%s added to favourites</string>
+	<string name="name_not_added_to_favorites">Cannot add %s to favourites list</string>
 </resources>

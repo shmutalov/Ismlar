@@ -5,7 +5,6 @@ import com.epikur.ismlar.services.IFavoriteNamesService;
 import com.epikur.ismlar.services.INamesService;
 
 import android.app.Dialog;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,16 +44,28 @@ public class NamesListViewItemClickListener implements AdapterView.OnItemClickLi
 			((TextView)nameInfoDialog.findViewById(R.id.origin)).setText(nameInfo.getOrigin());
 			((TextView)nameInfoDialog.findViewById(R.id.meaning)).setText(nameInfo.getMeaning());
 			
-			((Button)nameInfoDialog.findViewById(R.id.add_to_favorite)).setOnClickListener(new View.OnClickListener() {
+			Button addToFavourites = ((Button)nameInfoDialog.findViewById(R.id.add_to_favorite));
+			addToFavourites.setEnabled(!favorites.isFavorite(nameInfo.getName()));
+			
+			addToFavourites.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View view) {
-					Toast.makeText(context
-							, String.format(context.getResources().getString(R.string.name_added_to_favorites)
-									, nameInfo.getName())
-							, Toast.LENGTH_SHORT).show();
-					
-					view.setEnabled(false);
+					if (favorites.add(nameInfo.getName())) {
+						favorites.save();
+						
+						Toast.makeText(context
+								, String.format(context.getResources().getString(R.string.name_added_to_favorites)
+										, nameInfo.getName())
+								, Toast.LENGTH_LONG).show();
+						
+						view.setEnabled(false);
+					} else {
+						Toast.makeText(context
+								, String.format(context.getResources().getString(R.string.name_not_added_to_favorites)
+										, nameInfo.getName())
+								, Toast.LENGTH_LONG).show();
+					}
 				}
 			});
 			

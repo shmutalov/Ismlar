@@ -55,6 +55,7 @@ public final class R {
         public static final int hello_world=0x7f060002;
         public static final int name_added_to_favorites=0x7f060006;
         public static final int name_dialog_title=0x7f060005;
+        public static final int name_not_added_to_favorites=0x7f060007;
         public static final int search_names_hint=0x7f060003;
     }
     public static final class style {

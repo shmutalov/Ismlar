@@ -3,7 +3,9 @@ package com.epikur.ismlar;
 import java.util.ArrayList;
 
 import com.epikur.ismlar.models.NameModel;
+import com.epikur.ismlar.services.AndroidFavoriteNamesService;
 import com.epikur.ismlar.services.AndroidSqliteNamesService;
+import com.epikur.ismlar.services.IFavoriteNamesService;
 import com.epikur.ismlar.services.INamesService;
 
 import android.os.Bundle;
@@ -21,6 +23,7 @@ public class MainActivity extends Activity {
 	private EditText searchNames;
 	private ArrayList<NameModel> namesList;
 	private INamesService nameService;
+	private IFavoriteNamesService favourites;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +34,15 @@ public class MainActivity extends Activity {
 		searchNames = (EditText) findViewById( R.id.search_names);
 		
 		nameService = new AndroidSqliteNamesService(this);
+		favourites = new AndroidFavoriteNamesService(this);
+		favourites.load();
 		
 		if (nameService != null && nameService.Connect("names", null, null)) {
 			namesListViewAdapter = new NamesListViewAdapter(this, nameService, 50);
 			
 			namesListView.setAdapter(namesListViewAdapter);
 			namesListView.setOnScrollListener(new NamesListViewScrollListener((NamesListViewAdapter)namesListViewAdapter));
-			namesListView.setOnItemClickListener(new NamesListViewItemClickListener(this, nameService));
+			namesListView.setOnItemClickListener(new NamesListViewItemClickListener(this, nameService, favourites));
 			
 			searchNames.addTextChangedListener(new TextWatcher() {
 				
@@ -71,4 +76,9 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	protected void onDestroy() {
+		favourites.save();
+		super.onDestroy();
+	}
 }
