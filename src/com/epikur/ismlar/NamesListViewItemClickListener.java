@@ -1,6 +1,7 @@
 package com.epikur.ismlar;
 
 import com.epikur.ismlar.models.NameModel;
+import com.epikur.ismlar.services.IFavoriteNamesService;
 import com.epikur.ismlar.services.INamesService;
 
 import android.app.Dialog;
@@ -17,10 +18,12 @@ public class NamesListViewItemClickListener implements AdapterView.OnItemClickLi
 
 	private Context context;
 	private INamesService namesService;
-
-	public NamesListViewItemClickListener(Context context, INamesService namesService) {
+	private IFavoriteNamesService favorites;
+	
+	public NamesListViewItemClickListener(Context context, INamesService namesService, IFavoriteNamesService favorites) {
 		this.context = context;
 		this.namesService = namesService;
+		this.favorites = favorites;
 	}
 	
 	@Override
@@ -46,7 +49,11 @@ public class NamesListViewItemClickListener implements AdapterView.OnItemClickLi
 				
 				@Override
 				public void onClick(View view) {
-					Toast.makeText(context, String.format("%s added to favorites", nameInfo.getName()), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context
+							, String.format(context.getResources().getString(R.string.name_added_to_favorites)
+									, nameInfo.getName())
+							, Toast.LENGTH_SHORT).show();
+					
 					view.setEnabled(false);
 				}
 			});
