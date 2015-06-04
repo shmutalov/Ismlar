@@ -5,30 +5,18 @@ import com.epikur.ismlar.services.INamesService;
 import android.widget.AbsListView;
 
 public class NamesListViewScrollListener implements AbsListView.OnScrollListener {
-	private int preLoadCount;
-	private int totalLoadedCount;
-	private int halfOfTotal;
 	private boolean loading;
-	
-	private int diffCounter;
-	private int oldDiffCounter;
 	
 	private int currentPosition;
 	
 	private int currentFirstVisibleItem;
 	private int currentVisibleItemCount;
-	private int oldFirstVisibleItem;
-	private int oldVisibleItemCount;
-	private int currentScrollState;
+	private int currentTotalItemCount;
 	
 	private NamesListViewAdapter adapter;
 	
 	public NamesListViewScrollListener(NamesListViewAdapter adapter) {
 		this.currentPosition = 0;
-		this.totalLoadedCount = 0;
-		this.diffCounter = 0;
-		this.oldDiffCounter = 0;
-		
 		this.adapter = adapter;
 		
 		loadData(currentPosition);
@@ -41,8 +29,6 @@ public class NamesListViewScrollListener implements AbsListView.OnScrollListener
 		
 		if (loadedCount != 0) {
 			currentPosition = position;
-			totalLoadedCount = loadedCount;
-			halfOfTotal = totalLoadedCount / 2;
 		}
 		
 		loading = false;
@@ -51,66 +37,35 @@ public class NamesListViewScrollListener implements AbsListView.OnScrollListener
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		this.oldFirstVisibleItem = currentFirstVisibleItem;
-		this.oldVisibleItemCount = currentVisibleItemCount;
-		
 		this.currentFirstVisibleItem = firstVisibleItem;
 		this.currentVisibleItemCount = visibleItemCount;
 		
-		int diff = this.currentFirstVisibleItem - this.oldFirstVisibleItem;
-		
-		oldDiffCounter = diffCounter;
-		
-		if (diff > 0) {
-			diffCounter++;
-		} else if (diff < 0) {
-			diffCounter--;
-		} else {
-			diffCounter = 0;
-		}
-		
-		if (diffCounter == 0) {
-			if (oldDiffCounter > 0) {
-				currentPosition = currentPosition + oldDiffCounter;
-			} else if (oldDiffCounter < 0) {
-				currentPosition = currentPosition + oldDiffCounter;
-				
-				if (currentPosition < 0)
-					currentPosition = 0;
-			} else {
-				return;
-			}
-			
-			oldDiffCounter = 0;
-			
-			if (!loading)
-				adapter.loadData(currentPosition);
-		} else {
-			return;
-		}
-		
-		/*if (diffCounter > 2) {
-			if (firstVisibleItem > halfOfTotal) {
-				currentPosition = currentPosition + halfOfTotal;
-			}
-		} else if (diffCounter < -2) {
-			if (firstVisibleItem < halfOfTotal) {
-				currentPosition = currentPosition - halfOfTotal;
-				
-				if (currentPosition < 0)
-					currentPosition = 0;
-			}
-		} else {
-			return;
-		}
-		
-		
-		if (!loading)
-			adapter.loadData(currentPosition);*/
+		this.currentTotalItemCount = totalItemCount;
 	}
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		this.currentScrollState = scrollState;
+		if (scrollState == SCROLL_STATE_IDLE) {
+			if ((currentFirstVisibleItem + currentVisibleItemCount) == currentTotalItemCount) {
+				if (!loading) {
+					int position = currentPosition + 5;
+					
+					if (adapter.loadData(position) != 0) {
+						currentPosition = position;
+					} else {
+						adapter.loadData(currentPosition);
+					}
+				}
+			} else if (currentFirstVisibleItem == 0) {
+				if (!loading) {
+					currentPosition -= 5;
+					
+					if (currentPosition < 0)
+						currentPosition = 0;
+					
+					adapter.loadData(currentPosition);
+				}
+			}
+		}
 	}
 }

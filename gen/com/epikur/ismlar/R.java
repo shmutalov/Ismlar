@@ -29,7 +29,7 @@ public final class R {
         public static final int name_list_item_bg_hover=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f090005;
+        public static final int favorites_menu=0x7f090005;
         public static final int gender_image=0x7f090003;
         public static final int name=0x7f090004;
         public static final int names_list=0x7f090001;
@@ -46,6 +46,7 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
+        public static final int favorites_menu=0x7f060004;
         public static final int hello_world=0x7f060002;
         public static final int search_names_hint=0x7f060003;
     }

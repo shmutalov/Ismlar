@@ -34,7 +34,7 @@ public class NamesListViewAdapter extends BaseAdapter {
 		
 		namesList = new ArrayList<NameModel>();
 		
-		loadData(0);
+		//loadData(0);
 		
 		//this.inflater = LayoutInflater.from(context);
 		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -44,6 +44,8 @@ public class NamesListViewAdapter extends BaseAdapter {
 		this.letterFilter = letterFilter;
 		this.genderFilter = genderFilter;
 		this.nameFilter = nameFilter;
+		
+		loadData(0);
 	}
 	
 	public int loadData(int position) {
@@ -51,8 +53,8 @@ public class NamesListViewAdapter extends BaseAdapter {
 		String nameFilterString = (nameFilter != null) ? "%" + nameFilter + "%" : "%";
 		String letterFilterString = (letterFilter != null) ? letterFilter : "%";
 		
-		//List<NameModel> names = namesService.GetFilteredNamesList(letterFilterString, nameFilterString, genderFilterString, "%", "%", position, preLoadCount);
-		List<NameModel> names = namesService.GetAllNames(position, preLoadCount);
+		List<NameModel> names = namesService.GetFilteredNamesList(letterFilterString, nameFilterString, genderFilterString, "%", "%", position, preLoadCount);
+		//List<NameModel> names = namesService.GetAllNames(position, preLoadCount);
 		
 		int ret = 0;
 		

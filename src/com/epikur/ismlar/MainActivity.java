@@ -8,6 +8,8 @@ import com.epikur.ismlar.services.INamesService;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -26,6 +28,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		namesListView = (ListView) findViewById(R.id.names_list);
+		searchNames = (EditText) findViewById( R.id.search_names);
 		
 		nameService = new AndroidSqliteNamesService(this);
 		
@@ -33,6 +36,27 @@ public class MainActivity extends Activity {
 			namesListViewAdapter = new NamesListViewAdapter(this, nameService, 50);
 			namesListView.setAdapter(namesListViewAdapter);
 			namesListView.setOnScrollListener(new NamesListViewScrollListener((NamesListViewAdapter)namesListViewAdapter));
+			
+			searchNames.addTextChangedListener(new TextWatcher() {
+				
+				@Override
+				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+					return;
+				}
+				
+				@Override
+				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+						int arg3) {
+					return;
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					String text = searchNames.getText().toString();
+					
+					((NamesListViewAdapter)namesListViewAdapter).applyFilter(null, null, text);
+				}
+			});
 		} else {
 			finish();
 		}

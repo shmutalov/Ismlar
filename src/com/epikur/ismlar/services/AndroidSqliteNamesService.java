@@ -197,11 +197,11 @@ public class AndroidSqliteNamesService implements INamesService {
                 + "    , origin" 	+ "\n"
                 + "FROM ism" 		+ "\n"
                 + "WHERE 1=1" 		+ "\n"
-	            + "    AND ( ? IS NULL OR letter LIKE ? )" 		+ "\n"
-	            + "    AND ( ? IS NULL OR gender LIKE ? )" 		+ "\n"
-	            + "    AND ( ? IS NULL OR name LIKE ? )" 		+ "\n"
-	            + "    AND ( ? IS NULL OR meaning LIKE ? )" 	+ "\n"
-	            + "    AND ( ? IS NULL OR origin LIKE ? )"		+ "\n"
+	            + "    AND ( UPPER(letter) LIKE ? )" 		+ "\n"
+	            + "    AND ( UPPER(gender) LIKE ? )" 		+ "\n"
+	            + "    AND ( UPPER(name) LIKE ? )" 			+ "\n"
+	            + "    AND ( UPPER(meaning) LIKE ? )" 		+ "\n"
+	            + "    AND ( UPPER(origin) LIKE ? )"		+ "\n"
 	            + "ORDER BY name"	+ "\n";
 
             if (limit_count != 0) {
@@ -222,8 +222,8 @@ public class AndroidSqliteNamesService implements INamesService {
             	filteredNamesCursor = db.rawQuery(selectFilteredNamesQuery
 	            		, new String[] {
 		            		letter
-		            		, name
 		            		, gender
+		            		, name
 		            		, meaning
 		            		, origin
 	            		}
