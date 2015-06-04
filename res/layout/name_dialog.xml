@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="5dip" >
+    
+    <LinearLayout 
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:orientation="horizontal"
+        android:layout_marginRight="5dip">
+        
+        <ImageView
+            android:id="@+id/gender_image"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:background="@android:color/transparent" 
+            android:src="@drawable/gender_male" />
+        
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:paddingLeft="8dip"
+            android:text="Sherzod"
+            android:textStyle="italic"
+            android:textSize="20dip" >
+	
+		</TextView>
+    </LinearLayout>
+    
+	<TextView
+	    android:id="@+id/origin"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:textSize="16dip"
+	    android:textColor="#808080"
+	    android:textStyle="italic"
+	    android:text="o`zbekcha" >
+
+	</TextView>
+	
+	<TextView
+	    android:id="@+id/meaning"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="8dip"
+	    android:textStyle="italic"
+	    android:textSize="18dip"
+	    android:text="Sherlar zotidan" >
+
+	</TextView>
+	
+	<Button 
+	    android:id="@+id/add_to_favorite"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+        android:text="Add to favorites"/>
+	
+	<Button 
+	    android:id="@+id/close_dialog"
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+        android:text="OK"/>
+	
+</LinearLayout>

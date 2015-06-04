@@ -141,7 +141,7 @@ public class AndroidSqliteNamesService implements INamesService {
                 + "    , name" 		+ "\n"
                 + "    , meaning" 	+ "\n"
                 + "    , origin" 	+ "\n"
-                + "FROM ism"
+                + "FROM ism"		+ "\n"
                 + "WHERE 1=1"			+ "\n"
                 + "		AND name = ?"	+ "\n";
 

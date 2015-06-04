@@ -6,4 +6,5 @@
     <string name="hello_world">Hello world!</string>
 	<string name="search_names_hint">Enter name part here for search...</string>
 	<string name="favorites_menu">Favorites</string>
+	<string name="name_dialog_title">Name meaning</string>
 </resources>

@@ -1,7 +1,5 @@
 package com.epikur.ismlar;
 
-import com.epikur.ismlar.services.INamesService;
-
 import android.widget.AbsListView;
 
 public class NamesListViewScrollListener implements AbsListView.OnScrollListener {

@@ -34,8 +34,10 @@ public class MainActivity extends Activity {
 		
 		if (nameService != null && nameService.Connect("names", null, null)) {
 			namesListViewAdapter = new NamesListViewAdapter(this, nameService, 50);
+			
 			namesListView.setAdapter(namesListViewAdapter);
 			namesListView.setOnScrollListener(new NamesListViewScrollListener((NamesListViewAdapter)namesListViewAdapter));
+			namesListView.setOnItemClickListener(new NamesListViewItemClickListener(this, nameService));
 			
 			searchNames.addTextChangedListener(new TextWatcher() {
 				
