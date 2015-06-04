@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.epikur.ismlar.FavouritesActivity"
+            android:label="@string/title_activity_favourites"
+            android:parentActivityName="com.epikur.ismlar.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.epikur.ismlar.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

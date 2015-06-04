@@ -10,9 +10,11 @@ import com.epikur.ismlar.services.INamesService;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -76,6 +78,21 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch(item.getItemId()) {
+	    case R.id.favorites_menu:
+	        Intent intent = new Intent(this, FavouritesActivity.class);
+	        
+	        this.startActivity(intent);
+	        break;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+
+	    return true;
+	}
+	
 	@Override
 	protected void onDestroy() {
 		favourites.save();
